@@ -1,6 +1,6 @@
 # Beanstalk Codehawks Part 2
 
-
+<img src="https://res.cloudinary.com/droqoz7lg/image/upload/q_90/dpr_2.0/c_fill,g_auto,h_320,w_320/f_auto/v1/company/vwkqymxqrtutq4rdvf7w?_a=BATAUVAA0" width="50%" height="auto">
 
 # Contest Details
 
