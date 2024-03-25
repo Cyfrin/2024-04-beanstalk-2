@@ -1,0 +1,39 @@
+name: SDK
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - "projects/sdk/**"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: SDK Tests
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+      - name: Cache Node Modules
+        id: node-modules-cache
+        uses: actions/cache@v3
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: Install Dependencies
+        if: steps.node-modules-cache.outputs.cache-hit != 'true'
+        run: yarn install --immutable
+      - name: Install Rust (Stable)
+        run: curl https://sh.rustup.rs -sSf | sh -s -- -y
+      - name: Install Anvil
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+      # TODO: Cache Anvil RPC calls between runs to speed up tests
+      - name: Launch Anvil
+        run: yarn anvil4tests &
+      - name: Build All
+        run: yarn build
+      - run: yarn sdk:test
+        working-directory: projects/sdk

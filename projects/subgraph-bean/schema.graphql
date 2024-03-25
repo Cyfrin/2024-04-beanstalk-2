@@ -1,0 +1,224 @@
+type Token @entity {
+  "Smart contract address of the token"
+  id: ID!
+
+  "Number of decimals"
+  decimals: BigInt!
+
+  "Last USD price calculated"
+  lastPriceUSD: BigDecimal!
+}
+
+type Bean @entity {
+  "Contract address of the Bean token"
+  id: ID!
+
+  "Current supply"
+  supply: BigInt!
+
+  "Latest price seen"
+  price: BigDecimal!
+
+  "Current market cap"
+  marketCap: BigDecimal!
+
+  "Percent of supply in LP used for peg maintenance"
+  supplyInPegLP: BigDecimal!
+
+  "Cumulative volume of beans traded"
+  volume: BigInt!
+
+  "Cumulative volume in USD value"
+  volumeUSD: BigDecimal!
+
+  "Current liquidity in USD value"
+  liquidityUSD: BigDecimal!
+
+  "Cumulative number of crosses"
+  crosses: Int!
+
+  "Detailed cross events during this snapshot"
+  crossEvents: [BeanCross!]! @derivedFrom(field: "bean")
+
+  "Last timestamp a cross was seen"
+  lastCross: BigInt!
+
+  "Last season seen from Beanstalk"
+  lastSeason: Int!
+
+  "Pools that include this Bean"
+  pools: [Pool!]!
+
+  "Hourly snapshot of Bean data"
+  hourlySnapshot: [BeanHourlySnapshot!]! @derivedFrom(field: "bean")
+
+  "Daily snapshot of Bean data"
+  dailySnapshot: [BeanDailySnapshot!]! @derivedFrom(field: "bean")
+}
+
+type BeanHourlySnapshot @entity {
+  "{Token address}-{Season}"
+  id: ID!
+
+  "Bean token address"
+  bean: Bean!
+
+  "Current supply"
+  supply: BigInt!
+
+  "Current market cap"
+  marketCap: BigDecimal!
+
+  "Percent of supply in LP used for peg maintenance"
+  supplyInPegLP: BigDecimal!
+
+  "Cumulative volume in BEAN"
+  volume: BigInt!
+
+  "Cumulative volume in USD"
+  volumeUSD: BigDecimal!
+
+  "Current liquidity in USD"
+  liquidityUSD: BigDecimal!
+
+  "Current USD price"
+  price: BigDecimal!
+
+  "Cumulative number of crosses"
+  crosses: Int!
+
+  "Current deltaB for peg"
+  deltaBeans: BigInt!
+
+  "Volume in BEAN for this snapshot"
+  deltaVolume: BigInt!
+
+  "Volume in USD for this snapshot"
+  deltaVolumeUSD: BigDecimal!
+
+  "Difference in liquidity for this snapshot"
+  deltaLiquidityUSD: BigDecimal!
+
+  "Crosses occuring in this snapshot"
+  deltaCrosses: Int!
+
+  "Detailed cross events during this snapshot"
+  crossEvents: [BeanCross!]! @derivedFrom(field: "hourlySnapshot")
+
+  "Season associated with this snapshot"
+  season: Int!
+
+  "Timestamp this snapshot was updated"
+  timestamp: BigInt!
+
+  "Block number this snapshot was updated"
+  blockNumber: BigInt!
+}
+
+type BeanDailySnapshot @entity {
+  id: ID!
+  bean: Bean!
+  supply: BigInt!
+  marketCap: BigDecimal!
+
+  "Percent of supply in LP used for peg maintenance"
+  supplyInPegLP: BigDecimal!
+  volume: BigInt!
+  volumeUSD: BigDecimal!
+  liquidityUSD: BigDecimal!
+  price: BigDecimal!
+  crosses: Int!
+  deltaBeans: BigInt!
+  deltaVolume: BigInt!
+  deltaVolumeUSD: BigDecimal!
+  deltaLiquidityUSD: BigDecimal!
+  deltaCrosses: Int!
+  crossEvents: [BeanCross!]! @derivedFrom(field: "dailySnapshot")
+  season: Int!
+  timestamp: BigInt!
+  blockNumber: BigInt!
+}
+
+type BeanCross @entity {
+  id: ID!
+  bean: Bean!
+  price: BigDecimal!
+  timestamp: BigInt!
+  timeSinceLastCross: BigInt!
+  above: Boolean!
+  hourlySnapshot: BeanHourlySnapshot!
+  dailySnapshot: BeanDailySnapshot!
+}
+
+type PoolCross @entity {
+  id: ID!
+  pool: Pool!
+  price: BigDecimal!
+  timestamp: BigInt!
+  timeSinceLastCross: BigInt!
+  above: Boolean!
+  hourlySnapshot: PoolHourlySnapshot!
+  dailySnapshot: PoolDailySnapshot!
+}
+
+type Pool @entity {
+  id: ID!
+  bean: Bean!
+  reserves: [BigInt!]!
+  lastSeason: Int!
+  lastPrice: BigDecimal!
+  volume: BigInt!
+  volumeUSD: BigDecimal!
+  liquidityUSD: BigDecimal!
+  crosses: Int!
+  "Last timestamp a cross was seen for this pool"
+  lastCross: BigInt!
+  crossEvents: [PoolCross!]! @derivedFrom(field: "pool")
+  deltaBeans: BigInt!
+  hourlySnapshot: [PoolHourlySnapshot!]! @derivedFrom(field: "pool")
+  dailySnapshot: [PoolDailySnapshot!]! @derivedFrom(field: "pool")
+}
+
+type PoolHourlySnapshot @entity {
+  id: ID!
+  pool: Pool!
+  reserves: [BigInt!]!
+  lastPrice: BigDecimal!
+  volume: BigInt!
+  volumeUSD: BigDecimal!
+  liquidityUSD: BigDecimal!
+  crosses: Int!
+  utilization: BigDecimal!
+  deltaBeans: BigInt!
+  deltaReserves: [BigInt!]!
+  deltaVolume: BigInt!
+  deltaVolumeUSD: BigDecimal!
+  deltaLiquidityUSD: BigDecimal!
+  deltaCrosses: Int!
+  crossEvents: [PoolCross!]! @derivedFrom(field: "hourlySnapshot")
+  season: Int!
+  createdAt: BigInt!
+  updatedAt: BigInt!
+}
+
+type PoolDailySnapshot @entity {
+  id: ID!
+  pool: Pool!
+  reserves: [BigInt!]!
+  lastPrice: BigDecimal!
+  volume: BigInt!
+  volumeUSD: BigDecimal!
+  liquidityUSD: BigDecimal!
+  crosses: Int!
+  utilization: BigDecimal!
+  deltaBeans: BigInt!
+  deltaReserves: [BigInt!]!
+  deltaVolume: BigInt!
+  deltaVolumeUSD: BigDecimal!
+  deltaLiquidityUSD: BigDecimal!
+  deltaCrosses: Int!
+  crossEvents: [PoolCross!]! @derivedFrom(field: "dailySnapshot")
+  season: Int!
+  createdAt: BigInt!
+  updatedAt: BigInt!
+}

@@ -1,0 +1,16 @@
+query FarmerSiloRewards($account: String) {
+  snapshots: siloHourlySnapshots(
+    where: { silo: $account }
+    orderBy: season
+    orderDirection: asc
+    first: 1000
+  ) {
+    id
+    season
+    createdAt
+    stalk # = totalStalk(previous siloHourlySnapshot) + hourlyStalkDelta
+    grownStalkPerBdvPerSeason # ...
+    deltaDepositedBDV # ...
+    depositedBDV # ...
+  }
+}

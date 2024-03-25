@@ -1,0 +1,34 @@
+name: UI
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - "projects/ui/**"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+      - name: Cache Node Modules
+        id: node-modules-cache
+        uses: actions/cache@v3
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: Install Dependencies
+        if: steps.node-modules-cache.outputs.cache-hit != 'true'
+        run: yarn install --immutable
+      - name: Build SDK
+        run: yarn workspace @beanstalk/sdk generate && yarn build
+      - name: Generate Typedefs
+        run: yarn ui:generate
+      - name: Unit Tests
+        run: yarn ui:test
+        env:
+          VITE_ALCHEMY_API_KEY: ${{ secrets.VITE_ALCHEMY_API_KEY }}
