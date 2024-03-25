@@ -112,7 +112,7 @@ Tokens:
 Clone repo: 
 
 ```bash
-git clone https://github.com/BeanstalkFarms/Beanstalk.git
+git clone https://github.com/Cyfrin/2024-04-beanstalk-2
 ```
 Install dependencies: 
 ```bash
