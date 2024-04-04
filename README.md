@@ -147,5 +147,5 @@ yarn test
 **Additional Known Issues:**
 
 - LightChaser - [Bot Issues](https://github.com/Cyfrin/2024-04-beanstalk-2/issues/1)
-- Valid Issues as Detemined by Part 1:
+- Valid Issues as Determined by Part 1:
 - Beanstalk Part 1 - [Part 1 Audit Preliminary Report](https://www.codehawks.com/report/clsxlpte900074r5et7x6kh96)
