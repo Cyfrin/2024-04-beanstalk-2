@@ -144,3 +144,8 @@ yarn test
     * All Beanstalk audit reports listed in this [repository](https://github.com/BeanstalkFarms/Beanstalk-Audits);
     * **TBD: Beanstalk Codehawks Part 1**; and
     * All bug reports from the Immunefi program listed [here](https://community.bean.money/bug-reports).
+**Additional Known Issues:**
+
+- LightChaser - [Bot Issues](https://github.com/Cyfrin/2024-04-beanstalk-2/issues/1)
+- Valid Issues as Detemined by Part 1:
+- Beanstalk Part 1 - [Part 1 Audit Preliminary Report](https://www.codehawks.com/report/clsxlpte900074r5et7x6kh96)
