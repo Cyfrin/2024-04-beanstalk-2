@@ -1,15 +1,14 @@
 # Beanstalk Codehawks Part 2
 
-<img src="https://res.cloudinary.com/droqoz7lg/image/upload/q_90/dpr_2.0/c_fill,g_auto,h_320,w_320/f_auto/v1/company/vwkqymxqrtutq4rdvf7w?_a=BATAUVAA0" width="50%" height="auto">
+[//]: # (contest-details-open)
 
-# Contest Details
-
-### Prize Pool
+## Contest Details
 
 - Total Pool - 35,000
 - H/M - 30,000
 - Low - 1,500
 - Community Judging - 3,500
+  
 - Starts: Monday, April 01, 2024 Noon UTC
 - Ends: Monday, April 15, 2024 Noon UTC
 
@@ -46,6 +45,10 @@ You can read an overview of how Beanstalk works [here](https://docs.bean.money/a
     * Anyone who holds Fertilizer, the debt asset earned by participating in Beanstalk's recapitalization.
 * Pod holder
     * Anyone who holds Pods, the Beanstalk-native debt asset. Pods are minting when lending Beans to Beanstalk (Sowing Beans). Not particularly relevant for the scope of this audit.
+
+[//]: # (contest-details-close)
+
+[//]: # (scope-open)
 
 ## Scope
 
@@ -107,7 +110,11 @@ Tokens:
 * ERC-20 (all are accepted in Farm balances, a whitelist is accepted on the Deposit Whitelist, etc.)
 * ERC-1155 (Fertilizer and Deposits are ERC-1155 tokens)
 
-## Setup
+[//]: # (scope-close)
+
+[//]: # (getting-started-open)
+
+## Getting Started
 
 Clone repo: 
 
@@ -133,6 +140,10 @@ Test:
 yarn test
 ```
 
+[//]: # (getting-started-close)
+
+[//]: # (known-issues-open)
+
 ## Known Issues
 
 * The `enrootDeposits` functions do not properly emit ERC-1155 events.
@@ -149,3 +160,5 @@ yarn test
 - LightChaser - [Bot Issues](https://github.com/Cyfrin/2024-04-beanstalk-2/issues/1)
 - Valid Issues as Determined by Part 1:
 - Beanstalk Part 1 - [Part 1 Audit Preliminary Report](https://www.codehawks.com/report/clsxlpte900074r5et7x6kh96)
+
+[//]: # (known-issues-close)
