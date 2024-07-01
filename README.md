@@ -1,7 +1,5 @@
 # Beanstalk Codehawks Part 2
 
-[//]: # (contest-details-open)
-
 ## Contest Details
 
 - Total Pool - 35,000
@@ -16,6 +14,8 @@
 
 - nSLOC: 1,991
 - Complexity Score: 1203
+
+[//]: # (contest-details-open)
 
 ## About
 
